@@ -1,0 +1,64 @@
+@import './variables.styl'
+
+m-default-text()
+  font-size: 16px
+  line-height: 22px
+
+only-desktop()
+  @media is-mobile
+    display: none
+
+only-mobile()
+  @media is-desktop
+    display: none
+
+constrain-width(w)
+  max-width: w
+  width: w
+  min-width: w
+
+constrain-height(h)
+  max-height: h
+  height: h
+  min-height: h
+
+center($byAxis)
+  display: flex
+  flex-direction: $byAxis
+  justify-content: center
+  align-items: center
+
+color-links($link, $link-hover)
+  &,
+  &:visited,
+  &:active
+    color: $link
+
+    svg.aicon,
+    .aicon svg
+      fill: $link
+
+  &.link--disabled
+    color: $c-gray
+    cursor: default
+
+  @media (hover: hover) and (pointer: fine)
+    color: $link-hover
+
+    svg.aicon,
+    .aicon svg
+      fill: $link-hover
+
+    &.link--disabled
+      color: $c-gray
+      cursor: default
+
+on-hover()
+  @media is-hoverable
+    &:hover
+      {block}
+
+ellipsis()
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis

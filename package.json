@@ -1,0 +1,42 @@
+{
+  "name": "shake",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node -r coffeescript/register ./bin/www",
+    "front": "node -r coffeescript/register ./node_modules/.bin/webpack -c front/webpack.coffee",
+    "front:watch": "node -r coffeescript/register ./node_modules/.bin/webpack --mode development --watch -c front/webpack.coffee"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.16.5",
+    "@svgr/webpack": "^6.1.2",
+    "babel-loader": "^8.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-mobx": "^2.0.0",
+    "coffee-loader": "^3.0.0",
+    "coffeescript": "^2.6.1",
+    "cookie-parser": "~1.4.4",
+    "copy-webpack-plugin": "^10.2.0",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "html-webpack-plugin": "^5.5.0",
+    "html-webpack-pug-plugin": "^4.0.0",
+    "http-errors": "~1.6.3",
+    "mobx": "^6.3.9",
+    "mobx-react": "^7.2.1",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sequelize": "^6.12.0",
+    "stylus": "0.54.5",
+    "terser-webpack-plugin": "^5.3.0",
+    "webpack": "^5.65.0",
+    "wrapper-webpack-plugin": "^2.1.0"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
