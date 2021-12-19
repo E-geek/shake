@@ -67,6 +67,7 @@ module.exports = (envCLI, argv) ->
       path: outputDir
       filename: "main#{hash}.js"
       publicPath: publicPath
+      clean: true
     resolve:
       modules: [
         path.resolve(__dirname)
