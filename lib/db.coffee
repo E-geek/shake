@@ -17,6 +17,8 @@ List = db.define 'list', {
     default: 1
 }, { sequelize: db, modelName: 'list' }
 
+module.exports = { db, List }
+
 await db.authenticate()
 console.log 'DB connectied'
 if process.env.DB_SYNC
@@ -29,4 +31,3 @@ if process.env.DB_SYNC
 else
   console.log 'DB sync skip'
 
-module.exports = { db }
