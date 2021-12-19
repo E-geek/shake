@@ -5,6 +5,7 @@ cookieParser = require('cookie-parser')
 logger = require('morgan')
 stylus = require('stylus')
 indexRouter = require('./routes/index')
+db = require './lib/db'
 
 app = express()
 
@@ -26,7 +27,7 @@ app.use (req, res, next) ->
   return
 
 # error handler
-app.use (err, req, res, next) ->
+app.use (err, req, res) ->
   # set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = if req.app.get('env') == 'development' then err else {}
