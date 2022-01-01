@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { generate, getList, saveList } from '../services/api'
+import { generate, getList, saveList, shakeList, nextInList } from '../services/api'
 
 export class ListStore
   isInit: no
@@ -40,6 +40,14 @@ export class ListStore
         @prev = meta.variants[meta.prev]
     return
 
+  processResponse: (listResponse) ->
+    if listResponse.status isnt 200
+      alert "We have problem: #{listResponse.error}"
+      return
+    @setMeta listResponse.data
+    @loading = false
+    return
+
   newList: ->
     listResponse = await generate()
     if listResponse.status isnt 200
@@ -56,13 +64,7 @@ export class ListStore
   choseList: (id) ->
     @id = id
     listResponse = await getList id
-    if listResponse.status isnt 200
-      alert "We have problem: #{listResponse.error}"
-      return
-    runInAction =>
-      @setMeta listResponse.data
-      @loading = false
-      return
+    @processResponse listResponse
     return
 
   save: ({ variants }) ->
@@ -71,11 +73,18 @@ export class ListStore
       id: @id
       variants: variants.filter (v) -> !!v.trim()
     }
-    if listResponse.status isnt 200
-      alert "We have problem: #{listResponse.error}"
-      return
-    runInAction =>
-      @setMeta listResponse.data
-      @loading = false
-      return
+    @processResponse listResponse
     return
+
+  shake: ->
+    @loading = true
+    listResponse = await shakeList @id
+    @processResponse listResponse
+    return
+
+  next: ->
+    @loading = true
+    listResponse = await nextInList @id
+    @processResponse listResponse
+    return
+

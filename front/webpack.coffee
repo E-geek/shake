@@ -111,12 +111,12 @@ module.exports = (envCLI, argv) ->
           'css-loader'
           'postcss-loader'
           'stylus-loader'
-          {
+          ###{
             loader: path.resolve(__dirname, 'res', 'modLoader.js')
             options:
               test: /\/components\/[^/]+\/[^/]+\.styl$/
               prepend: "@import \'../../res/css/variables.styl\'\n@import \'../../res/css/mixins.styl\'\n\n`"
-          }
+          }###
         ]
       }
       {

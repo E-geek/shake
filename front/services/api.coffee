@@ -6,5 +6,11 @@ export generate = ->
 export getList = (id) ->
   return await request "/api/id/#{id}"
 
+export shakeList = (id) ->
+  return await request "/api/shake/?id=#{id}"
+
+export nextInList = (id) ->
+  return await request "/api/next/?id=#{id}"
+
 export saveList = ({ id, newPassword, pass, variants }) ->
   return await request "/api/save", { id, newPassword, pass, variants }

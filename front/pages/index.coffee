@@ -46,4 +46,13 @@ export Index = observer ->
     <br />
     <br />
     <h4>{listStore.prev}</h4>
+    <br />
+    <br />
+    <div onClick={=> listStore.next(); return}>Next</div>
+    <br />
+    <br />
+    <div onClick={=> listStore.shake(); return}>Shake</div>
+    <br />
+    <br />
+    <div onClick={=> uiStore.setEdit yes; return}>Edit</div>
   </>
