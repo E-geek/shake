@@ -41,4 +41,9 @@ export Index = observer ->
   unless listStore.meta.variants.length
     return <Empty onCreate={=> uiStore.setEdit yes; return} />
 
-  return <>Hi</>
+  return <>
+    <h1>{listStore.actual}</h1>
+    <br />
+    <br />
+    <h4>{listStore.prev}</h4>
+  </>

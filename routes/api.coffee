@@ -72,6 +72,7 @@ r.get '/shake', (req, res) ->
     order = shakeOrder order, currentVariant
     list.meta = { variants, order, pointer, prev }
   try
+    list.changed 'meta', true
     await list.save()
   catch err
     res
@@ -109,6 +110,7 @@ r.post '/save', (req, res) ->
     pointer: 0
     prev: -1
   try
+    list.changed 'meta', true
     await list.save()
   catch err
     res
@@ -126,12 +128,13 @@ r.get '/next', (req, res) ->
   { order, pointer } = list.meta
   list.meta.prev = order[pointer]
   list.meta.pointer++
-  if pointer >= list.meta.variants.length
+  if pointer >= list.meta.variants.length - 1
     currentVariant = order[pointer]
     order = shakeOrder order, currentVariant
     list.meta.order = order
     list.meta.pointer = 0
   try
+    list.changed 'meta', true
     await list.save()
   catch err
     res

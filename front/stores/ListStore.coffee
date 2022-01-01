@@ -9,6 +9,10 @@ export class ListStore
 
   meta: null
 
+  actual: ''
+
+  prev: ''
+
   loading: true
 
   constructor: () ->
@@ -28,6 +32,14 @@ export class ListStore
     @isInit = yes
     return
 
+  setMeta: (meta) ->
+    @meta = meta
+    if meta? and meta.pointer? and meta.pointer >= 0 and meta.variants?.length > 0
+      @actual = meta.variants[meta.order[meta.pointer]]
+      if meta.prev >= 0
+        @prev = meta.variants[meta.prev]
+    return
+
   newList: ->
     listResponse = await generate()
     if listResponse.status isnt 200
@@ -36,7 +48,7 @@ export class ListStore
     runInAction =>
       { id, meta } = listResponse.data
       @id = id
-      @meta = meta
+      @setMeta meta
       @loading = false
       return
     return
@@ -48,7 +60,7 @@ export class ListStore
       alert "We have problem: #{listResponse.error}"
       return
     runInAction =>
-      @meta = listResponse.data
+      @setMeta listResponse.data
       @loading = false
       return
     return
@@ -63,7 +75,7 @@ export class ListStore
       alert "We have problem: #{listResponse.error}"
       return
     runInAction =>
-      @meta = listResponse.data
+      @setMeta listResponse.data
       @loading = false
       return
     return
