@@ -19,7 +19,7 @@ r.get '/', (req, res) ->
   list = db.List.build
     pass: null
     meta:
-      variant: []
+      variants: []
       order: []
       pointer: 0
       prev: -1
@@ -60,8 +60,8 @@ r.get '/shake', (req, res) ->
       .send error: 'Meta is empty'
     return
   # if all right
-  if list.meta.variant.length < 2
-    list.meta.order = if list.meta.variant.length then [0] else []
+  if list.meta.variants.length < 2
+    list.meta.order = if list.meta.variants.length then [0] else []
     list.meta.pointer = 0
   else
     { variants, order, pointer, prev } = list.meta
@@ -94,9 +94,9 @@ r.post 'save', (req, res) ->
   gap = []
   order = []
   i = 0
-  for variant in variants
-    variant = variant.trim()
-    if variant.length > 0
+  for variants in variants
+    variants = variants.trim()
+    if variants.length > 0
       gap.push
       order.push i++
   if newPassword
