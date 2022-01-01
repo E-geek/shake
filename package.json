@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node -r coffeescript/register ./bin/www",
+    "server": "node -r coffeescript/register ./node_modules/.bin/nodemon -e pug,styl,coffee ./bin/www",
     "front": "node -r coffeescript/register ./node_modules/.bin/webpack -c front/webpack.coffee",
     "front:watch": "node -r coffeescript/register ./node_modules/.bin/webpack --mode development --watch -c front/webpack.coffee"
   },
@@ -38,6 +39,7 @@
     "wrapper-webpack-plugin": "^2.1.0"
   },
   "devDependencies": {
+    "nodemon": "^2.0.15",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.6.0"

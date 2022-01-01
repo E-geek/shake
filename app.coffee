@@ -1,10 +1,11 @@
-createError = require('http-errors')
-express = require('express')
-path = require('path')
-cookieParser = require('cookie-parser')
-logger = require('morgan')
-stylus = require('stylus')
-indexRouter = require('./routes/index')
+createError = require 'http-errors'
+express = require 'express'
+path = require 'path'
+cookieParser = require 'cookie-parser'
+logger = require 'morgan'
+stylus = require 'stylus'
+indexRouter = require './routes/index'
+apiRouter = require './routes/api'
 db = require './lib/db'
 
 app = express()
@@ -20,6 +21,7 @@ app.use stylus.middleware(path.join(__dirname, 'public'))
 app.use express.static(path.join(__dirname, 'public'))
 
 app.use '/', indexRouter
+app.use '/api', apiRouter
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
@@ -35,4 +37,5 @@ app.use (err, req, res) ->
   res.status err.status or 500
   res.render 'error'
   return
+
 module.exports = app
