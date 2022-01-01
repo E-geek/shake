@@ -8,6 +8,8 @@ import { Loading } from './loading'
 import { Empty } from './empty'
 import { Edit } from './edit'
 
+import './index.styl'
+
 export Index = observer ->
   { listStore, uiStore } = useStores()
   history = useHistory()
@@ -41,7 +43,7 @@ export Index = observer ->
   unless listStore.meta.variants.length
     return <Empty onCreate={=> uiStore.setEdit yes; return} />
 
-  return <>
+  return <div className="index">
     <h1>{listStore.actual}</h1>
     <br />
     <br />
@@ -55,4 +57,4 @@ export Index = observer ->
     <br />
     <br />
     <div onClick={=> uiStore.setEdit yes; return}>Edit</div>
-  </>
+  </div>

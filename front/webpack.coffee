@@ -100,11 +100,6 @@ module.exports = (envCLI, argv) ->
         ]
       }
       {
-        test: /\.jsx?$/
-        exclude: /node_modules/
-        use: [  ]
-      }
-      {
         test: /\.styl$/
         use: [
           'style-loader'
