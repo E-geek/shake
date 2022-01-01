@@ -4,6 +4,10 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import { useStores } from '../hooks/useStores'
 
+import { Loading } from './loading'
+import { Empty } from './empty'
+import { Edit } from './edit'
+
 export Index = observer ->
   { listStore, uiStore } = useStores()
   history = useHistory()
@@ -24,5 +28,17 @@ export Index = observer ->
     if listStore.id and location.pathname isnt "/#{listStore.id}"
       history.push "/#{listStore.id}"
   , [listStore.id]
+
+  if listStore.loading or not listStore.isInit or not listStore.meta?.variants
+    return <Loading />
+
+  unless listStore.meta?
+    return <>Data is miss</>
+
+  if uiStore.isEdit
+    return <Edit list={listStore.meta?.variants} />
+
+  unless listStore.meta.variants.length
+    return <Empty onCreate={=> uiStore.setEdit yes; return} />
 
   return <>Hi</>

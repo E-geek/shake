@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
-import { generate, getList } from '../services/api'
+import { generate, getList, saveList } from '../services/api'
 
 export class ListStore
   isInit: no
@@ -8,6 +8,8 @@ export class ListStore
   id: ''
 
   meta: null
+
+  loading: true
 
   constructor: () ->
     makeAutoObservable @
@@ -35,6 +37,7 @@ export class ListStore
       { id, meta } = listResponse.data
       @id = id
       @meta = meta
+      @loading = false
       return
     return
 
@@ -45,6 +48,22 @@ export class ListStore
       alert "We have problem: #{listResponse.error}"
       return
     runInAction =>
-      @meta = listResponse.data.meta
+      @meta = listResponse.data
+      @loading = false
+      return
+    return
+
+  save: ({ variants }) ->
+    @loading = true
+    listResponse = await saveList {
+      id: @id
+      variants: variants.filter (v) -> !!v.trim()
+    }
+    if listResponse.status isnt 200
+      alert "We have problem: #{listResponse.error}"
+      return
+    runInAction =>
+      @meta = listResponse.data
+      @loading = false
       return
     return

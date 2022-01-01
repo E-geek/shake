@@ -5,3 +5,6 @@ export generate = ->
 
 export getList = (id) ->
   return await request "/api/id/#{id}"
+
+export saveList = ({ id, newPassword, pass, variants }) ->
+  return await request "/api/save", { id, newPassword, pass, variants }

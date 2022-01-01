@@ -82,7 +82,7 @@ r.get '/shake', (req, res) ->
   return
 
 # Body (json) id string list, newPassword (optional), variants string[]
-r.post 'save', (req, res) ->
+r.post '/save', (req, res) ->
   body = if typeof req.body is 'string' then JSON.parse(req.body) else req.body
   unless body
     res
@@ -94,10 +94,10 @@ r.post 'save', (req, res) ->
   gap = []
   order = []
   i = 0
-  for variants in variants
-    variants = variants.trim()
-    if variants.length > 0
-      gap.push
+  for variant in variants
+    variant = variant.trim()
+    if variant.length > 0
+      gap.push variant
       order.push i++
   if newPassword
     list.pass = password.hash newPassword
