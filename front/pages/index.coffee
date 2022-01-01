@@ -4,6 +4,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import { useStores } from '../hooks/useStores'
 
+import { VGap } from '../components/VGap'
+
 import { Loading } from './loading'
 import { Empty } from './empty'
 import { Edit } from './edit'
@@ -44,17 +46,13 @@ export Index = observer ->
     return <Empty onCreate={=> uiStore.setEdit yes; return} />
 
   return <div className="index">
-    <h1>{listStore.actual}</h1>
-    <br />
-    <br />
-    <h4>{listStore.prev}</h4>
-    <br />
-    <br />
-    <div onClick={=> listStore.next(); return}>Next</div>
-    <br />
-    <br />
-    <div onClick={=> listStore.shake(); return}>Shake</div>
-    <br />
-    <br />
-    <div onClick={=> uiStore.setEdit yes; return}>Edit</div>
+    <h1 className="index__actual">{listStore.actual}</h1>
+    <h4 className="index__prev">{listStore.prev}</h4>
+    <div className="index__buttons">
+      <div className="button" onClick={=> listStore.next(); return}>Next</div>
+      <VGap height={8} />
+      <div className="button button--orange" onClick={=> listStore.shake(); return}>Shake</div>
+      <VGap height={4} />
+      <div className="button" onClick={=> uiStore.setEdit yes; return}>Edit</div>
+    </div>
   </div>
