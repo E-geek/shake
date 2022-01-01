@@ -6,13 +6,13 @@ db = require '../lib/db'
 r = express.Router()
 
 getListPassById = ({ id, pass, res }) ->
-  list = await db.List.findOne { id }
+  list = await db.List.findOne where: { id }
   unless list
     res
       .status 404
       .send error: 'Not found'
     return false
-  return false unless checkPass list, req.query.pass, res
+  return false unless checkPass list, pass, res
   return list
 
 r.get '/', (req, res) ->
@@ -31,13 +31,15 @@ r.get '/', (req, res) ->
       .status 500
       .send error: 'Internal error'
     return
-  res.send id: list.id
+  res.send
+    id: list.id
+    meta: list.meta
   return
 
 # QS:
 # pass (optional) for password-protected
 r.get '/id/:id', (req, res) ->
-  list = getListPassById
+  list = await getListPassById
     id: req.params.id
     pass: req.query.pass
     res: res
@@ -50,7 +52,7 @@ r.get '/id/:id', (req, res) ->
 # pass (optional)
 r.get '/shake', (req, res) ->
   { id, pass } = req.query
-  list = getListPassById { id, pass, res }
+  list = await getListPassById { id, pass, res }
   return unless list
   unless list.meta?.variants?
     res
@@ -87,7 +89,7 @@ r.post 'save', (req, res) ->
       .status 400
       .send error: 'Empty storage'
   { id, newPassword, pass, variants } = body
-  list = getListPassById { id, pass, res }
+  list = await getListPassById { id, pass, res }
   return unless list
   gap = []
   order = []
@@ -119,7 +121,7 @@ r.post 'save', (req, res) ->
 # QS: id, pass
 r.get '/next', (req, res) ->
   { id, pass } = req.query
-  list = getListPassById { id, pass, res }
+  list = await getListPassById { id, pass, res }
   return unless list
   { order, pointer } = list.meta
   list.meta.prev = order[pointer]

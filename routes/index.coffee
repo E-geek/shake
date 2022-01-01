@@ -1,12 +1,12 @@
 express = require('express')
 router = express.Router()
-db = require '../lib/db'
-
-### GET home page. ###
 
 router.get '/', (req, res) ->
-  lists = await db.List.findAll()
-  res.render 'index', count: lists.length
+  res.render 'index', {}
+  return
+
+router.get '/:listId', (req, res) ->
+  res.render 'index', {id: req.params.listId}
   return
 
 module.exports = router
