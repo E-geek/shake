@@ -1,11 +1,15 @@
-{ Sequelize, Model, DataTypes } = require 'sequelize'
+{ Sequelize, DataTypes } = require 'sequelize'
+dictCompact = require './dictionary_compact.json'
+
+realDict = Object.keys dictCompact
+maxIndex = realDict.length - 1
 
 db = new Sequelize "#{process.env.DB_TYPE}://#{process.env.DB_USER}:#{process.env.DB_PASS}@#{process.env.DB_HOST}/#{process.env.DB_NAME}"
 
 List = db.define 'list', {
   id:
-    type: DataTypes.UUID
-    defaultValue: Sequelize.UUIDV4,
+    type: DataTypes.STRING
+    defaultValue: () => "#{realDict[Math.floor Math.random() * maxIndex]}-#{100 + Math.floor Math.random() * 899}",
     primaryKey: true
   pass:
     type: DataTypes.STRING
