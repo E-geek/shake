@@ -8,12 +8,6 @@ global-reset()
   box-sizing: border-box
   user-drag: none
 
-div,
-span,
-canvas
-  user-select: none
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-
 html,
 body
   display: block
@@ -34,6 +28,8 @@ body
   background: #326690
   min-width: 128px
   cursor: pointer
+  user-select: none
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 
   &:hover
     background: #285274
