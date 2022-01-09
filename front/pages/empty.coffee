@@ -1,8 +1,9 @@
 import React from 'react'
 
+import './empty.styl'
+
 export Empty = ({ onCreate }) ->
-  return <div>
-    This list empty.
-    <br />
-    <div onClick={onCreate}>Fill!</div>
+  return <div className="empty">
+    <h1>This list empty.</h1>
+    <div className="button" onClick={onCreate}>Fill!</div>
   </div>
