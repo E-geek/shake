@@ -1,9 +1,11 @@
+zlib = require 'zlib'
 createError = require 'http-errors'
 express = require 'express'
 path = require 'path'
 cookieParser = require 'cookie-parser'
 logger = require 'morgan'
 stylus = require 'stylus'
+compression = require 'compression'
 indexRouter = require './routes/index'
 apiRouter = require './routes/api'
 db = require './lib/db'
@@ -11,6 +13,7 @@ db = require './lib/db'
 app = express()
 
 # view engine setup
+app.use compression level: zlib.Z_BEST_COMPRESSION
 app.set 'views', path.join(__dirname, 'views')
 app.set 'view engine', 'pug'
 app.use logger('dev')

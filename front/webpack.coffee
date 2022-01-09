@@ -30,11 +30,13 @@ module.exports = (envCLI, argv) ->
     envKeys["process.env.#{pKey}"] = JSON.stringify(process.env[pKey]);
 
   devtool = 'inline-source-map'
-  hash = '.[hash]'
+  hash = '.[chunkhash]'
   outputDir = path.join(__dirname, '..', 'public', 'js')
   publicPath = '/js/'
-  splitChunks = if argv.mode == 'development' then null else
-    chunks: 'async'
+  splitChunks = if argv.mode == 'development' then false else
+    chunks: 'all'
+#    chunks: 'async'
+    minSize: 20000
     maxSize: 244000
 
   optimization =
@@ -94,8 +96,6 @@ module.exports = (envCLI, argv) ->
           }
           {
             loader: 'coffee-loader'
-            ###options:
-              transpile: {}###
         }
         ]
       }
