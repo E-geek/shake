@@ -1,8 +1,8 @@
-import React from 'react';
+import { h } from 'preact';
 
 export VGap = ({ height, className }) =>
-  h = (height or 1) * 16
+  height = (height or 1) * 16
   style =
     display: 'block'
-    height: "#{h}px"
+    height: "#{height}px"
   return <div className={className} style={style} />

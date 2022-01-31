@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { useEffect } from 'preact/hooks'
+import { observer } from 'mobx-preact'
 
 import { useStores } from '../hooks/useStores'
 
@@ -41,7 +42,7 @@ export Edit = observer ({ list }) ->
     <div className="edit">
       {actualList.map ([id, value]) =>
         <div className="edit__item" key={id}>
-          <input type="text" value={value} onChange={(e) => editStore.updateListItem(id, e.target.value); return} />
+          <input type="text" value={value} onInput={(e) => editStore.updateListItem(id, e.target.value); return} />
           <HGap height={1} />
           <div className="edit__remove" onClick={=> editStore.removeListItem(id); return}>
             <RemoveIcon />

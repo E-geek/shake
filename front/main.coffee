@@ -1,7 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { observer } from 'mobx-react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { h, render } from 'preact'
+import { observer } from 'mobx-preact'
+import { Router } from 'preact-router'
 
 import { Index } from './pages/index'
 
@@ -10,11 +9,10 @@ import './res/css/main.styl'
 App = observer  ->
   return <div className="main">
     <Router>
-      <Route path="/">
-        <Index />
-      </Route>
+      <Index path="/" />
+      <Index path="/:id" />
     </Router>
   </div>
 
 
-ReactDOM.render <App />, document.getElementById 'root'
+render <App />, document.getElementById 'root'

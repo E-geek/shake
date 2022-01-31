@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { h, Fragment } from 'preact'
+import { useEffect } from 'preact/hooks'
+import { observer } from 'mobx-preact'
+import { route, getCurrentUrl } from 'preact-router'
 
 import { useStores } from '../hooks/useStores'
 
@@ -14,23 +15,22 @@ import './index.styl'
 
 export Index = observer ->
   { listStore, uiStore } = useStores()
-  history = useHistory()
-  location = useLocation()
+  location = getCurrentUrl()
 
   useEffect () ->
     unless listStore.isInit
       listStore.initDone()
-      if location.pathname is '/'
+      if location is '/'
         await listStore.newList()
         uiStore.setEdit yes
       else
-        await listStore.choseList location.pathname.replace '/', ''
+        await listStore.choseList location.replace '/', ''
     return
-  , [location.href, listStore.isInit]
+  , [location, listStore.isInit]
 
   useEffect () ->
-    if listStore.id and location.pathname isnt "/#{listStore.id}"
-      history.push "/#{listStore.id}"
+    if listStore.id and location isnt "/#{listStore.id}"
+      route "/#{listStore.id}"
   , [listStore.id]
 
   if listStore.loading or not listStore.isInit or not listStore.meta?.variants

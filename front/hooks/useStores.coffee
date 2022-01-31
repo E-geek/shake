@@ -1,4 +1,4 @@
-import React from 'react'
+import { useContext } from 'preact/hooks';
 import { storesContext } from '../stores/RootStore'
 
-export useStores = () => React.useContext storesContext
+export useStores = () => useContext storesContext

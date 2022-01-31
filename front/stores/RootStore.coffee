@@ -1,4 +1,4 @@
-import React from 'react'
+import { createContext } from 'preact'
 import { ListStore } from './ListStore'
 import { UIStore } from './UIStore'
 import { EditStore } from './EditStore'
@@ -7,7 +7,7 @@ editStore = new EditStore()
 listStore = new ListStore()
 uiStore = new UIStore()
 
-export storesContext = React.createContext gap = {
+export storesContext = createContext gap = {
   listStore
   uiStore
   editStore

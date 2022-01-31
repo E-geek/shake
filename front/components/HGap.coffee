@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 
 export HGap = ({ width, className }) =>
   w = (width or 1) * 16

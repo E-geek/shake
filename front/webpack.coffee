@@ -119,7 +119,7 @@ module.exports = (envCLI, argv) ->
       }
       {
         test: /\.svg$/
-        use: [ '@svgr/webpack' ]
+        use: [ 'preact-svg-loader' ]
       }
       {
         test: /res\/.*\.png/
